@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- координаты артефакта проекта -->
+    <groupId>ru.yandex.practicum</groupId>
+    <artifactId>Catsgram</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- блок параметров проекта -->
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/>
+    </parent>
+    <!--
+    C:\Users\1\.m2
+    https://repo.maven.apache.org/maven2/
+
+mvn dependency:tree
+
+     https://mvnrepository.com
+https://central.sonatype.com/?smo=true
+
+https://maven.apache.org/ref/3.9.6/maven-model-builder/super-pom.html
+      -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--  <dependency>
+              <scope>test</scope> Можно указать, что зависимость нужна только на определённом этапе сборки
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+    -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <!--
+        <repositories>
+        <repository>
+            <id>additional-local-dir</id>
+            <url>file://path/to/directory</url>
+        </repository>
+        <repository>
+            <id>org-remote-repository</id>
+            <url>https://maindomain.org/maven2</url>
+        </repository>
+        </repositories>
+    -->
+    <!-- блок настройки процесса сборки -->
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <failOnViolation>true</failOnViolation>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- Для того, чтобы привязать плагин к определенной фазе сборки, используются блоки <executions> и <execution>
+        Цели плагинов Maven соответствуют фазам циклов сборки.
+Именно так Maven понимает, какой плагин вызывать в какой момент.
+
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+            Этот фрагмент pom-файла добавляет новую задачу single в фазу package.
+            Для выполнения этой задачи будет вызван maven-assembly-plugin, который особым образом собирает jar-файл проекта.
+
+            mvn help:describe -Dcmd=clean
+        -->
+
+        <resources>
+            <resource>
+                <directory>java-rest/rest/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+    </build>
+
+</project>
